@@ -37,11 +37,14 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
     String recognizedValue;
     double recognizedValueRate;
 
+    String recognizedHeight;
+    double recognizedHeightRate;
+
     public NutkiOknoGlowne() {
         this.recognizedValue = null;
         this.recognizedValueRate = 0;
         
-        /*try {
+        try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(NutkiOknoGlowne.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,7 +54,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
             Logger.getLogger(NutkiOknoGlowne.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(NutkiOknoGlowne.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         initComponents();
         
     }
@@ -72,9 +75,9 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
         imgLabelR = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         recognizeValueButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        recognizeHeight = new javax.swing.JButton();
         valueLabel = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        heightLabel = new javax.swing.JLabel();
         valueRateLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
@@ -82,6 +85,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         infoArea = new javax.swing.JTextArea();
+        heightRateLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -110,12 +114,16 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Recognize height");
-        jButton2.setEnabled(false);
+        recognizeHeight.setText("Recognize height");
+        recognizeHeight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recognizeHeightActionPerformed(evt);
+            }
+        });
 
         valueLabel.setText("Value: osemka");
 
-        jLabel4.setText("Height: C");
+        heightLabel.setText("Height: C");
 
         valueRateLabel.setText("Rate: 0");
 
@@ -128,6 +136,8 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
         infoArea.setColumns(20);
         infoArea.setRows(5);
         jScrollPane2.setViewportView(infoArea);
+
+        heightRateLabel.setText("Rate: 0");
 
         jMenu1.setText("File");
 
@@ -154,7 +164,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
 
-        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.setText("Info");
         jMenu2.add(jMenuItem1);
 
         jMenuBar1.add(jMenu2);
@@ -177,28 +187,33 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(recognizeValueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(recognizeHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(imgLabelR, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(valueLabel)
-                    .addComponent(valueRateLabel)
-                    .addComponent(jLabel4))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(imgLabelR, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(valueLabel)
+                            .addComponent(valueRateLabel)
+                            .addComponent(heightLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(heightRateLabel)))
+                .addContainerGap(93, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addContainerGap(458, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +229,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(recognizeValueButton)
                         .addGap(6, 6, 6)
-                        .addComponent(jButton2))
+                        .addComponent(recognizeHeight))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -225,7 +240,9 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(valueRateLabel)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel4)))
+                        .addComponent(heightLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(heightRateLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,6 +328,43 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
 
     }//GEN-LAST:event_recognizeValueButtonActionPerformed
 
+    private void recognizeHeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recognizeHeightActionPerformed
+        // TODO add your handling code here:
+        NeuralNetwork mynet = NeuralNetwork.load("height.nnet"); // load trained neural network saved with easyNeurons
+        // get the image recognition plugin from neural network
+        ImageRecognitionPlugin imageRecognition = (ImageRecognitionPlugin)mynet.getPlugin(ImageRecognitionPlugin.IMG_REC_PLUGIN_NAME); // get the image recognition plugin from neural network
+
+        try {
+            HashMap <String, Double> output = imageRecognition.recognizeImage(new File(imgPath));
+            //System.out.println(output.toString());
+            infoArea.append(output.toString()+"\n");
+
+            List newOutput = GetOutput.SortOutput(output);
+
+            this.recognizedHeight = newOutput.get(0).toString();
+            this.recognizedHeightRate = Double.parseDouble(newOutput.get(1).toString());
+
+            this.heightLabel.setText("Value: " + this.recognizedHeight);
+            this.heightRateLabel.setText("Rate: " + this.recognizedHeightRate);
+
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        try
+        {
+          String fileName = this.recognizedHeight + ".png";
+          File FileToRead = new File(fileName);
+          Image Picture = ImageIO.read(FileToRead);
+          imgLabelR.setIcon(new ImageIcon(Picture));
+        }
+        catch (Exception e)
+        {
+          JOptionPane.showMessageDialog( null, "No file loaded" );
+        }
+
+    }//GEN-LAST:event_recognizeHeightActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -323,15 +377,15 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel heightLabel;
+    private javax.swing.JLabel heightRateLabel;
     private javax.swing.JLabel imgLabel;
     private javax.swing.JLabel imgLabelR;
     private javax.swing.JTextArea infoArea;
-    private javax.swing.JButton jButton2;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -343,6 +397,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton recognizeHeight;
     private javax.swing.JButton recognizeValueButton;
     private javax.swing.JLabel valueLabel;
     private javax.swing.JLabel valueRateLabel;
