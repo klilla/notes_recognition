@@ -1,5 +1,8 @@
 
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,7 +47,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
         this.recognizedValue = null;
         this.recognizedValueRate = 0;
         
-        try {
+       /* try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(NutkiOknoGlowne.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,6 +58,8 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(NutkiOknoGlowne.class.getName()).log(Level.SEVERE, null, ex);
         }
+        * 
+        */
         initComponents();
         
     }
@@ -70,6 +75,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
 
         jFileChooser1 = new javax.swing.JFileChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
+        paintImage1 = new PaintImage();
         imgLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         imgLabelR = new javax.swing.JLabel();
@@ -86,6 +92,9 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         infoArea = new javax.swing.JTextArea();
         heightRateLabel = new javax.swing.JLabel();
+        startDrawingButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        imagePanel1 = new ImagePanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -139,6 +148,29 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
 
         heightRateLabel.setText("Rate: 0");
 
+        startDrawingButton.setText("Start drawing");
+        startDrawingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startDrawingButtonActionPerformed(evt);
+            }
+        });
+
+        imagePanel1.setDoubleBuffered(true);
+        imagePanel1.setMinimumSize(new java.awt.Dimension(0, 0));
+
+        javax.swing.GroupLayout imagePanel1Layout = new javax.swing.GroupLayout(imagePanel1);
+        imagePanel1.setLayout(imagePanel1Layout);
+        imagePanel1Layout.setHorizontalGroup(
+            imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        imagePanel1Layout.setVerticalGroup(
+            imagePanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jScrollPane3.setViewportView(imagePanel1);
+
         jMenu1.setText("File");
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -181,13 +213,16 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(imgLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))))
                 .addGap(12, 12, 12)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(recognizeValueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(recognizeHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(recognizeValueButton, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(recognizeHeight, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(startDrawingButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,15 +240,15 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(heightRateLabel)))
                 .addContainerGap(93, Short.MAX_VALUE))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(458, Short.MAX_VALUE))
+                .addContainerGap(503, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,15 +256,12 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(recognizeValueButton)
                         .addGap(6, 6, 6)
-                        .addComponent(recognizeHeight))
+                        .addComponent(recognizeHeight)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(startDrawingButton))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -242,7 +274,15 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(heightLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(heightRateLabel)))
+                        .addComponent(heightRateLabel))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane3))
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -365,6 +405,29 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
 
     }//GEN-LAST:event_recognizeHeightActionPerformed
 
+    private void startDrawingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDrawingButtonActionPerformed
+        /*try {
+            File tmp = new File("graphics/empty.jpg");
+            paintImage1.setImg(ImageIO.read(tmp));
+	} catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(NutkiOknoGlowne.class.getName()).log(Level.SEVERE, null, ex);
+	}*/
+        JFileChooser jfc = new JFileChooser();
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+		if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+			try {
+                            System.out.println("tak, odczytalem");
+				paintImage1.setImg(ImageIO.read(jfc.getSelectedFile()));
+			} catch (IOException ex) {
+				JOptionPane.showMessageDialog(this, ex.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+				Logger.getLogger(NutkiOknoGlowne.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+    }//GEN-LAST:event_startDrawingButtonActionPerformed
+
+    private int button = MouseEvent.NOBUTTON;
     /**
     * @param args the command line arguments
     */
@@ -379,6 +442,7 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel heightLabel;
     private javax.swing.JLabel heightRateLabel;
+    private ImagePanel imagePanel1;
     private javax.swing.JLabel imgLabel;
     private javax.swing.JLabel imgLabelR;
     private javax.swing.JTextArea infoArea;
@@ -394,11 +458,14 @@ public class NutkiOknoGlowne extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private PaintImage paintImage1;
     private javax.swing.JButton recognizeHeight;
     private javax.swing.JButton recognizeValueButton;
+    private javax.swing.JButton startDrawingButton;
     private javax.swing.JLabel valueLabel;
     private javax.swing.JLabel valueRateLabel;
     // End of variables declaration//GEN-END:variables
