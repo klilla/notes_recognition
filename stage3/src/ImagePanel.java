@@ -2,8 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,6 +11,7 @@ import javax.swing.JPanel;
 
 /**
  *
+ * @author kasia
  */
 public class ImagePanel extends JPanel implements Observer {
 
@@ -30,7 +29,6 @@ public class ImagePanel extends JPanel implements Observer {
 	}
 
 	public ImagePanel() {
-            System.out.println("konst");
 		setLayout(null);
 	}
 
